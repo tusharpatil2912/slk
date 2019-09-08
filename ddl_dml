@@ -1,0 +1,110 @@
+1. Region Table -
+
+mysql> create table REGIONS(region_id int(5) PRIMARY KEY, region_name varchar(50));
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_hrdata |
++------------------+
+| regions          |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> desc regions;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| region_id   | int(5)      | NO   | PRI | NULL    |       |
+| region_name | varchar(50) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+========================================================================================================================================================================================
+
+2.COUNTRIES Table -
+
+mysql> create table COUNTRIES(country_id varchar(2) PRIMARY KEY, country_name varchar(50), region_id int(5), FOREIGN KEY(region_id) REFERENCES REGIONS(region_id));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_hrdata |
++------------------+
+| countries        |
+| regions          |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | varchar(2)  | NO   | PRI | NULL    |       |
+| country_name | varchar(50) | YES  |     | NULL    |       |
+| region_id    | int(5)      | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+========================================================================================================================================================================================
+
+3.LOCATIONS Table-
+
+mysql> create table LOCATIONS(location_id int(5) PRIMARY KEY, street_address varchar(255), postal_code varchar(10), city varchar(50), state_province varchar(50),
+ country_id varchar(2), FOREIGN KEY(country_id) REFERENCES COUNTRIES(country_id));
+
+mysql> show tables;
++------------------+
+| Tables_in_hrdata |
++------------------+
+| countries        |
+| locations        |
+| regions          |
++------------------+
+3 rows in set (0.00 sec)
+mysql> desc locations;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| location_id    | int(5)       | NO   | PRI | NULL    |       |
+| street_address | varchar(255) | YES  |     | NULL    |       |
+| postal_code    | varchar(10)  | YES  |     | NULL    |       |
+| city           | varchar(50)  | YES  |     | NULL    |       |
+| state_province | varchar(50)  | YES  |     | NULL    |       |
+| country_id     | varchar(2)   | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+========================================================================================================================================================================================
+
+4. 
+
+========================================================================================================================================================================================
+
+5. JOBS Table -
+
+mysql> create table JOBS(job_id varchar(50) PRIMARY KEY, job_title varchar(50),
+min_salary int, max_salary int);
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_hrdata |
++------------------+
+| countries        |
+| jobs             |
+| locations        |
+| regions          |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> desc jobs;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | varchar(50) | NO   | PRI | NULL    |       |
+| job_title  | varchar(50) | YES  |     | NULL    |       |
+| min_salary | int(11)     | YES  |     | NULL    |       |
+| max_salary | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
